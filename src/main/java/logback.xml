@@ -10,7 +10,7 @@
 	</appender>
 
 	<!-- 
-	1. log level
+	1. log level 레벨
 	  trace < debug < info  < warn < error
 	2. 기본로거를 상속 받는다.
 	3. additivity
