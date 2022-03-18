@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisenut.bbbot.member.MemberDAO">
+
+<insert id="insertAdmin" parameterType="com.wisenut.bbbot.member.Member">
+		INSERT INTO member(id,PASSWORD,residence) VALUES(#{id},#{password},#{residence})
+	</insert>
+	
+</mapper>
