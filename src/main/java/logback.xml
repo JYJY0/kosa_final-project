@@ -11,6 +11,7 @@
 
 	<!-- 
 	seul test 수정
+	soohyun test 수정
 	1. log level 레벨
 	  trace < debug < info  < warn < error
 	2. 기본로거를 상속 받는다.
