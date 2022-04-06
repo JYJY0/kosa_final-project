@@ -1,148 +1,115 @@
---root
---create database bbbot;
---grant all privileges on bbbot.* to ace@localhost identified by 'me';
---flush PRIVILEGES;
+#root 계정으로 접속
 
+#create database bbbot;
+#grant all privileges on bbbot.* to ace@localhost identified by 'me';
+#flush PRIVILEGES;
+
+#mariaDB는 데이터베이스를 사용한다는 명령어를 써줘야 함bbbot
 use bbbot; 
 
+#데이터베이스 만든 후 heidiSQL에서 데이터베이스 오른쪽버튼 -편집-encoding - utf8mb3_general_ci로 설정
+#각 테이블마다 인코딩을 해주는 것보다 효율적
+
+#테이블 생성
 CREATE TABLE member (
-   member_code   int   NOT NULL,
-   id   varchar  NOT NULL UNIQUE,
-   password   varchar   NOT NULL,
-   residence   varchar   NOT NULL
-);
+   member_code   int(50) PRIMARY KEY auto_increment,
+   id   varchar(50)  NOT NULL UNIQUE,
+   password   varchar(255)   NOT NULL,
+   residence   varchar(100)   NOT NULL
+)default character set utf8 collate utf8mb3_general_ci;
 
 CREATE TABLE member_child (
-   member_code   int   NOT NULL,
-   gender   int   NULL,
+   member_code   int(50)   NOT NULL,
+   gender   int   not null check (gender in (1,2)),
    Field   date   NULL
-);
+)default character set utf8 collate utf8mb3_general_ci;
 
+#챗봇 로그
 CREATE TABLE chatbot (
-   c_code    int   NOT NULL,
-    member_code    int   NOT NULL,
-    chat    text   NULL
-);
-
+   c_code    int(50)   PRIMARY KEY auto_increment,
+    member_code    int(50)   NOT NULL,
+    chat    TEXT   NOT NULL
+)default character set utf8 collate utf8mb3_general_ci;
+#사용자 EDA 
 CREATE TABLE  chatbot_eda  (
-    e_code    int   NOT NULL,
-    c_code    int   NOT NULL,
-    member_code    int   NOT NULL,
-    ner    varchar   NULL
-);
+    e_code    int(50)   PRIMARY KEY auto_increment,
+    c_code    int(50)   NOT NULL ,
+    member_code    int(50)   NOT NULL,
+    ner    varchar(50)   NULL
+)default character set utf8 collate utf8mb3_general_ci;
 
+#의료진단 시각화 
 CREATE TABLE  wellness_eda  (
-    we_code    int   NOT NULL,
-    member_code    int   NOT NULL,
-    w_code    int   NOT NULL
-);
+    we_code    int(50)   PRIMARY KEY auto_increment,
+    member_code    int(50)   NOT NULL,
+    w_id    int(50)   NOT NULL
+)default character set utf8 collate utf8mb3_general_ci;
 
+#병명과 병명 번호
 CREATE TABLE  wellness  (
-    w_code    int   NOT NULL,
-    병명    varchar   NULL,
-    구분    varchar   NULL,
-    동의어    varchar   NULL,
-    완화방법    varchar   NULL,
-    원인    varchar   NULL,
-    정의    varchar   NULL,
-    증상    varchar   NULL,
-    증상부위    varchar   NULL,
-    치료방법    varchar   NULL,
-    치료약    varchar   NULL,
-    좋은음식    varchar   NULL
-);
+    w_id int(50) PRIMARY KEY auto_increment,
+    resource varchar(10) not null UNIQUE,
+    label varchar(20) not null
+)default character set utf8 collate utf8mb3_general_ci;
+
+#증상부위
+CREATE TABLE  wellness_sym  (
+    w_id int(50) not null ,
+    symptom_area varchar(20) not null
+)default character set utf8 collate utf8mb3_general_ci;
+
+#의료진단 속성 및 설명
+CREATE TABLE  wellness_pro  (
+    w_id int(50) not null,
+    property varchar(30) not null,
+    descript text not null
+)default character set utf8 collate utf8mb3_general_ci;
 
 CREATE TABLE  faq_board  (
-    no    int   NOT NULL,
-    title    varchar   NULL,
+    no    int(50)   PRIMARY KEY auto_increment,
+    title    varchar(50)   NULL,
     content    text   NULL,
     answer    text   NULL,
-    count    int   NULL
-);
+    count    int(20)   NULL
+)default character set utf8 collate utf8mb3_general_ci;
 
 CREATE TABLE  facility  (
-    f_code    int   NOT NULL,
-    장소명    varchar   NULL,
-    구분    varchar   NULL,
-    주소    varchar   NULL
-);
+    f_code    int(50)   PRIMARY KEY auto_increment,
+    place_name   varchar(20)  not null,
+    type    varchar(20)   not null,
+    address    varchar(30)    not null
+)default character set utf8 collate utf8mb3_general_ci;
 
 CREATE TABLE  product  (
-    p_code    int   NOT NULL,
-    브랜드    varchar   NULL,
-    제품명    varchar   NULL,
-    설명    text   NULL,
-    가격    int   NULL,
-    이미지    varchar   NULL,
-    링크    varchar   NULL
-);
+    p_code    int(50)   PRIMARY KEY auto_increment,
+    brand    varchar(50)   NULL,
+    product   varchar(50)   not NULL,
+    descript    text   NULL,
+    price    int(20)   not NULL,
+    image    VARCHAR(100)   NULL,
+    link   varchar(100)   not NULL
+)default character set utf8 collate utf8mb3_general_ci;
 
-CREATE TABLE  bbb_ question  (
-    id    int   NOT NULL,
-    title    varchar   NULL,
-    content    text   NULL,
-    date    date   NULL
-);
+#질문 저장 후 의도(?) 파악
+CREATE TABLE  bbb_question  (
+	q_id    int(50)   PRIMARY KEY auto_increment,
+    q_title    varchar(50)   NOT NULL,
+    q_content    text   NULL,
+    q_date    date   not NULL
+)default character set utf8 collate utf8mb3_general_ci;
 
+#답변 테이블
 CREATE TABLE  bbb_comment  (
-    id    int   NOT NULL,
-    comment    varchar   NULL
-);
+    id    int(50)   NOT NULL,
+    comment    varchar(50)  not NULL
+)default character set utf8 collate utf8mb3_general_ci;
 
 CREATE TABLE  sentiment_analysis  (
-    감정    int   NULL,
-    질문    varchar   NULL,
-    답변    varchar   NULL
-);
+    sentiment    int(50)   NULL,
+    question    varchar(50)   NULL,
+    answer    varchar(50)   NULL
+)default character set utf8 collate utf8mb3_general_ci;
 
-ALTER TABLE  member  ADD CONSTRAINT  PK_MEMBER  PRIMARY KEY (
-    member_code 
-);
-
-ALTER TABLE  member_child  ADD CONSTRAINT  PK_MEMBER_CHILD  PRIMARY KEY (
-    member_code 
-);
-
-ALTER TABLE  chatbot  ADD CONSTRAINT  PK_CHATBOT  PRIMARY KEY (
-    c_code ,
-    member_code 
-);
-
-ALTER TABLE  chatbot_eda  ADD CONSTRAINT  PK_CHATBOT_EDA  PRIMARY KEY (
-    e_code ,
-    c_code ,
-    member_code 
-);
-
-ALTER TABLE  wellness_eda  ADD CONSTRAINT  PK_WELLNESS_EDA  PRIMARY KEY (
-    we_code ,
-    member_code ,
-    w_code 
-);
-
-ALTER TABLE  wellness  ADD CONSTRAINT  PK_WELLNESS  PRIMARY KEY (
-    w_code 
-);
-
-ALTER TABLE  faq_board  ADD CONSTRAINT  PK_FAQ_BOARD  PRIMARY KEY (
-    no 
-);
-
-ALTER TABLE  facility  ADD CONSTRAINT  PK_FACILITY  PRIMARY KEY (
-    f_code 
-);
-
-ALTER TABLE  product  ADD CONSTRAINT  PK_PRODUCT  PRIMARY KEY (
-    p_code 
-);
-
-ALTER TABLE  bbb_ question  ADD CONSTRAINT  PK_BBB_ QUESTION  PRIMARY KEY (
-    id 
-);
-
-ALTER TABLE  bbb_comment  ADD CONSTRAINT  PK_BBB_COMMENT  PRIMARY KEY (
-    id 
-);
 
 ALTER TABLE  member_child  ADD CONSTRAINT  FK_member_TO_member_child_1  FOREIGN KEY (
     member_code 
@@ -180,10 +147,10 @@ REFERENCES  member  (
 );
 
 ALTER TABLE  wellness_eda  ADD CONSTRAINT  FK_wellness_TO_wellness_eda_1  FOREIGN KEY (
-    w_code 
+    w_id 
 )
 REFERENCES  wellness  (
-    w_code 
+    w_id 
 );
 
 ALTER TABLE  bbb_comment  ADD CONSTRAINT  FK_bbb_ question_TO_bbb_comment_1  FOREIGN KEY (
@@ -192,19 +159,17 @@ ALTER TABLE  bbb_comment  ADD CONSTRAINT  FK_bbb_ question_TO_bbb_comment_1  FOR
 REFERENCES  bbb_ question  (
     id 
 );
+#의료진단 제약조건 설정
+ALTER TABLE  wellness_pro  ADD CONSTRAINT  FK_wellness_TO_wellness_pro  FOREIGN KEY (
+    w_id 
+)
+REFERENCES  wellness  (
+    w_id 
+);
+ALTER TABLE  wellness_sym  ADD CONSTRAINT  FK_wellness_TO_wellness_sym  FOREIGN KEY (
+    w_id 
+)
+REFERENCES  wellness  (
+    w_id 
+);
 
-
-
-
---create table goodsinfo (
---	code char(5)	not null	primary key,
---	name varchar(30)	not null,
---	price int(8)	not null,
---	maker varchar(20)
---) default character set utf8 collate utf8_general_ci;
---
---insert into goodsinfo values ('10001','디지털TV',350000,'LG'),
---('10002','DVD플레이어',250000,'LG'),
---('10003','디지털 카메라',210000,'삼성'),
---('10004','전자사전',180000,'아이리버'),
---('10005','벽걸이 에어컨',400000,'삼성');

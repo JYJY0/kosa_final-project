@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisenut.bbbot.wellness.WellnessDAO">
+
+<select id="getWellnessInfo" parameterType="String" resultType="com.wisenut.bbbot.wellness.WellnessProperty">
+SELECT  property,GROUP_CONCAT(descript) as descript
+FROM wellness_pro
+WHERE resource = 
+(
+		SELECT resource 
+		FROM wellness
+		WHERE label=#{name}) 
+GROUP BY property;
+</select>
+
+<select id="getDescript" parameterType="com.wisenut.bbbot.wellness.WellnessProperty" resultType="com.wisenut.bbbot.wellness.WellnessProperty">
+SELECT GROUP_CONCAT(descript) as descript
+FROM wellness_pro
+WHERE resource = 
+(
+		SELECT resource 
+		FROM wellness
+		WHERE label=#{name}) and property = #{property}
+GROUP BY property;
+</select> 
+
+</mapper>

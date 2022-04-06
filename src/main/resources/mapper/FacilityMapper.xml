@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisenut.bbbot.facility.FacilityDAO">
+<select id="searchFacility" resultType="com.wisenut.bbbot.facility.Facility" parameterType="String">
+	select lat,lon,place_name
+	from facility
+	where district=#{district} and type=#{type}
+</select>
+
+<select id="getDistrict" resultType="string">
+	SELECT DISTINCT district
+	FROM facility
+</select>
+
+<select id="getType" resultType="string">
+	SELECT DISTINCT type
+	FROM facility
+</select>
+
+</mapper>
