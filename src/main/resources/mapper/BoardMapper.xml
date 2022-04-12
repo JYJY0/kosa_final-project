@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	<mapper namespace="com.wisenut.bbbot.faq.BoardDAO">
+	
+		<insert id="insertArticle" parameterType="com.wisenut.bbbot.faq.BoardDTO">
+		insert into faq_board(title, content, answer) values (#{title}, #{content}, #{answer})
+		</insert> 
+		
+		<select id="getList" resultType="com.wisenut.bbbot.faq.BoardDTO">
+		select * from faq_board;
+		</select>
+		
+		<select id="getPage" resultType="com.wisenut.bbbot.faq.BoardDTO">
+		select * from faq_board where no= #{no};
+		</select>
+		
+		<update id="updateArticle" parameterType="com.wisenut.bbbot.faq.BoardDTO">
+		update faq_board set title = #{title}, content = #{content}, answer = #{answer}
+		where no = #{no} 
+		</update>
+		
+		<delete id="deleteArticle" parameterType="com.wisenut.bbbot.faq.BoardDTO">
+		delete from faq_board
+		where no = #{no}
+		</delete>
+		
+		<select id="getTotalArticle" resultType="long">
+		select count(*) as cnt
+		from faq_board
+		</select>
+		
+		<update id="updateReadcount" parameterType="com.wisenut.bbbot.faq.BoardDTO">
+		UPDATE faq_board SET
+		       count = count + 1
+		WHERE  no = #{no}
+		</update>
+		
+		<!-- <select id="getDetail" parameterType="long" resultType="com.wisenut.bbbot.faq.BoardDTO">
+		<![CDATA[
+		SELECT no 
+	         ,title 
+	         ,replace(content, chr(10), '<br/>') as content
+	         ,answer
+	    FROM faq_board
+		WHERE  no=#{no}
+		]]>
+		</select> -->
+	
+	</mapper>

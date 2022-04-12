@@ -1,160 +1,165 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="title" content="ScoopThemes">
-<meta name="ROBOTS"
-	content="Bootstrap 3 Themes, Responsive Themes, Bootstrap 3 Responsive, Wordpress Themes, Clean Themes, Modern Themes, Flat Themes, Flat UI, UI Design, UX Design, Web design, responsive bootstrap, Jquery Plugins, Free Plugins, Premium Bootstrap themes, Bootstrap 3, Premium Web Templates, Bootstrap Templates, Bootstrap Responsive Templates, Admin, Dashboard, Admin Templates, Admin Responsive, Admin responsive themes">
-<meta name="description"
-	content="Solutions For Web Developers Form ( Web Templates, Web Themes, Jquery Plugins, UX Design.. ) Whatever They Need.">
-<meta name="abstract"
-	content="Solutions For Web Developers Form ( Web Templates, Web Themes, Jquery Plugins, UX Design.. ) Whatever They Need.">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link rel="shortcut icon" href="favicon.ico">
 
-<meta name="author" content="www.scoopthemes.com">
-<meta name="publisher" content="www.scoopthemes.com">
-<meta name="copyright" content="www.scoopthemes.com">
-<meta name="revisit-after" content="2 days">
-<link rel="shortcut icon" href="../../resources/img/favicon.png">
+<link rel="stylesheet"
+	href="<c:url value="/resources/chatbot/css/bootstrap.min.css"/>">
+<link rel="stylesheet"
+	href="<c:url value="/resources/chatbot/css/animate.css"/>">
+<link rel="stylesheet"
+	href="<c:url value="/resources/chatbot/css/font-awesome.min.css"/>">
+<link rel="stylesheet"
+	href="<c:url value="/resources/chatbot/css/owl.carousel.css"/>">
+<link rel="stylesheet"
+	href="<c:url value="/resources/chatbot/css/owl.theme.css"/>">
+<link rel="stylesheet"
+	href="<c:url value="/resources/chatbot/css/styles.css"/>">
 
-<title>Scoop Themes | Coming Soon Template</title>
+<!-- site icon -->
+      <link rel="icon" href="/resources/member/img/bbbot.png" type="image/png" />
+<!-- bootstrap css -->	
+<link rel="stylesheet" href="/resources/member/css/bootstrap1.min.css" />
+      <!-- site css -->
+      <link rel="stylesheet" href="/resources/member/css/style2.css" />
+      <!-- responsive css -->
+      <link rel="stylesheet" href="/resources/member/css/responsive.css" />
+      <!-- color css -->
+      <link rel="stylesheet" href="/resources/member/css/color_2.css" />
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="/resources/member/css/bootstrap-select.css" />
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="/resources/member/css/perfect-scrollbar.css" />
+      <!-- custom css -->
+      <link rel="stylesheet" href="/resources/member/css/custom.css" />
+      <!-- calendar file css -->
+      <link rel="stylesheet" href="/resources/member/js/semantic.min.css" />	
 
-<!-- Bootstrap -->
-
-<link href="<c:url value="/resources/member/css/bootstrap.css"/>" rel="stylesheet">
-<link href="<c:url value="/resources/member/css/font-awesome.css"/>" rel="stylesheet">
-<link href="<c:url value="/resources/member/css/bootstrap-theme.css"/>" rel="stylesheet">
-<link rel="stylesheet" href="<c:url value="/resources/member/css/animations.css"/>">
-
-<!-- siimple style -->
-<link href="<c:url value="/resources/member/css/style.css"/>" rel="stylesheet">
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+<title>로그인</title>
 </head>
 
-<body>
+<body class="inner_page login">
+	<!-- Wrap all page content here -->
+	<div>
+		<jsp:include page="../common/chatbot_nav.jsp" />
 
-	<div class="cloud floating">
-		<img src="<c:url value="/resources/member/img/cloud.png"/>" alt="Scoop Themes">
+		<!-- 로그인 폼 -->
+		<div class="full_container" style="overflow: auto;">
+         <div class="container">
+            <div class="center verticle_center">
+               <div class="login_section">
+                  <div class="logo_login">
+                     <div class="center">
+                        <img width="210" src="/resources/member/img/bbbot_remove.png"/>
+                     </div>
+                  </div>
+                  <div class="login_form">
+                     <form class="loginForm" method="post" action="/member/login">
+                        <fieldset>
+                           <div class="field">
+                              <label class="label_field">ID</label>
+                              <input type="id" name="id" placeholder="Id" />
+                           </div>
+                           <div class="field">
+                              <label class="label_field">Password</label>
+                              <input type="password" name="password" placeholder="Password" />
+                           </div>
+                           <div class="field">
+                              <label class="label_field hidden">hidden label</label>
+                              <label class="form-check-label"><input type="checkbox" class="form-check-input"> Remember Me</label><br/><br/>
+                              <a class="forgot" href="">Forgotten Password?</a>
+                           </div>
+                           <div class="field margin_0">
+                              <label class="label_field hidden">hidden label</label>
+                              <button class="main_bt" id="sign-in" type="submit">Sing In</button>
+                              <button class="main_bt" id="sign-up" type="submit">Sing Up</button>
+                              
+                           </div>
+                        </fieldset>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
 	</div>
 
-	<div class="cloud pos1 fliped floating">
-		<img src="<c:url value="/resources/member/img/cloud.png"/>" alt="Scoop Themes">
-	</div>
 
-	<div class="cloud pos2 floating">
-		<img src="<c:url value="/resources/member/img/cloud.png"/>" alt="Scoop Themes">
-	</div>
-
-	<div class="cloud pos3 fliped floating">
-		<img src="<c:url value="/resources/member/img/cloud.png"/>" alt="Scoop Themes">
-	</div>
-
-
-	<div id="wrapper">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12 col-md-12 col-lg-12">
-					<img src="<c:url value="/resources/member/img/logo.png"/>" alt="Scoop Themes Logo"> <br />
-					<br />
-					<h2 class="subtitle">Welcome to BBBot</h2>
-					<br />
-					<!-- form-inline validate signup -->
-					<form class="form-vertical validate signup" action="" method="post" role="form">
-						<div class="form-group">
-						
-						    <label for="labelEmail">Email address</label>
-						    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-						    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-						</div>
-						  <div class="form-group col-md-4">
-						    <label for="labelPassword">Password</label>
-						    <input type="password" class="form-control" id="password" placeholder="Password">
-						  </div>
-						<input type="submit" name="subscribe" value="Log in" class="btn btn-theme">
-					</form>
-					<br />
-				</div>
-				<div class="col-sm-12 align-center">
-					<ul class="social-network social-circle">
-						<li><a href="#" class="icoFacebook" title="Facebook"><i
-								class="fa fa-facebook"></i></a></li>
-						<li><a href="#" class="icoTwitter" title="Twitter"><i
-								class="fa fa-twitter"></i></a></li>
-						<li><a href="#" class="icoGit" title="Github"><i
-								class="fa fa-github"></i></a></li>
-						<li><a href="#" class="icoLinkedin" title="Linkedin"><i
-								class="fa fa-linkedin"></i></a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-6 col-lg-offset-3">
-					<p class="copyright">
-						Shared by <i class="fa fa-love"></i><a
-							href="https://bootstrapthemes.co">BootstrapThemes</a>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
 
 
 	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		src="<c:url value="/resources/chatbot/js/modernizr.custom.32033.js"/>"></script>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.js"
+		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		crossorigin="anonymous"></script>
+
 	<script
-		src="http://downloads.mailchimp.com/js/jquery.form-n-validate.js"></script>
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="<c:url value="/resources/chatbot/js/bootstrap.min.js"/>"></script>
+	<script
+		src="<c:url value="/resources/chatbot/js/owl.carousel.min.js"/>"></script>
+	<script src="<c:url value="/resources/chatbot/js/waypoints.min.js"/>"></script>
+
+
+	<!-- jQuery REVOLUTION Slider  -->
+
+	<script type="text/javascript"
+		src="<c:url value="/resources/chatbot/rs-plugin/js/jquery.themepunch.plugins.min.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="/resources/chatbot/rs-plugin/js/jquery.themepunch.revolution.min.js"/>"></script>
+
+	<script src="<c:url value="/resources/chatbot/js/script.js"/>"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eba00c6d889626da66f3cc0ff395ba49"></script>
+	<script src="<c:url value="/resources/chatbot/js/chat_ajax.js"/>"></script>
 	<script>
-        /* 
-$(document).ready( function () {
-    $('#wrapper').height($(document).height());
-    // I only have one form on the page but you can be more specific if need be.
-    var $form = $('form');
+		$(document).ready(function() {
+			appMaster.preLoader();
+		});
+	</script>
+	<script>
 
-    if ( $form.length > 0 ) {
-        $('form input[type="submit"]').bind('click', function ( event ) {
-            if ( event ) event.preventDefault();
-            // validate_input() is a validation function I wrote, you'll have to substitute this with your own.
-            if ( $form.validate() ) { register($form); }
-        });
-    }
-});
-
-function appendResult(userText , className, iconClass){
-  var resultHTML = "<div class='stretchLeft result "+ className + "'>" + userText + " <span class='fa fa-" + iconClass + "'></span>" + "</div>";
-  $('body').append(resultHTML);
-  $('.result').delay(10000).fadeOut('1000');
-}
-
-
-function register($form) {
-    $.ajax({
-        type: $form.attr('method'),
-        url: $form.attr('action'),
-        data: $form.serialize(),
-        cache       : false,
-        dataType    : 'json',
-        contentType: "application/json; charset=utf-8",
-        error       : function(err) { alert("Could not connect to the registration server. Please try again later."); },
-        success     : function(data) {
-            if (data.result != "success") {
-                appendResult('Wrong Email Or You Are Already Registered, Try Again', 'error', 'exclamation');
-            } else {
-                // It worked, carry on...
-                appendResult('Successful, Check Your Email For Confirmation ', 'success', 'check');
-            }
-        }
+		$("#sign-up").click(function() {
+			alert("회원가입 버튼 작동");	
+			location.href="http://localhost:8080/member/register";
+		});
+	</script>
+	<script type="text/javascript">
+    $(document).ready(function() {
+        var msg = '<c:out value="${msg}"/>';
+        if((msg=='일치하는 회원정보가 없습니다.'))
+            alert("일치하는 회원정보가 없습니다.");
+     
     });
-} */
-    </script>
+</script>
+ <!-- jQuery -->
+      <!-- <script src="/resources/member/js/jquery.min.js"></script> -->
+      <script src="/resources/member/js/popper.min.js"></script>
+      <script src="/resources/member/js/bootstrap.min.js"></script> 
+      <!-- wow animation -->
+      <script src="/resources/member/js/animate.js"></script>
+      <!-- select country -->
+      <script src="/resources/member/js/bootstrap-select.js"></script>
+      <!-- nice scrollbar -->
+      <script src="/resources/member/js/perfect-scrollbar.min.js"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="/resources/member/js/custom.js"></script>
+
 
 </body>
 </html>

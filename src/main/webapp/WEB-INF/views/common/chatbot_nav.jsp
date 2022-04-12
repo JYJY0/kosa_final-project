@@ -27,7 +27,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="active"><a href="#slider">F&A 게시판</a></li>
+                            <li class="active"><a href="../faq/list">FAQ 게시판</a></li>
                             <li><a href="../facility">육아시설 검색</a></li>
                             <li><a href="#download">제품검색</a></li>
                             <li><a href="#subscribe">로그아웃</a></li>

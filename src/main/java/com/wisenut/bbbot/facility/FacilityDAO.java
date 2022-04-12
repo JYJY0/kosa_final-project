@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.wisenut.bbbot.member.Member;
+import com.wisenut.bbbot.member.MemberDAO;
 
 @Mapper
 public interface FacilityDAO {
