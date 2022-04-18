@@ -10,4 +10,6 @@ public interface WellnessDAO {
 	 
 	List<WellnessProperty> getWellnessInfo(String name) throws SQLException;
 	WellnessProperty getDescript(WellnessProperty property) throws SQLException;
+	List<WellnessProperty> getSymptom(String symptom_area) throws SQLException;
+	List<Wellness> getLabel(Wellness wellness) throws SQLException;
 }

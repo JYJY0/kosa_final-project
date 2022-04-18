@@ -5,7 +5,7 @@
 	<mapper namespace="com.wisenut.bbbot.faq.BoardDAO">
 	
 		<insert id="insertArticle" parameterType="com.wisenut.bbbot.faq.BoardDTO">
-		insert into faq_board(title, content, answer) values (#{title}, #{content}, #{answer})
+		insert into faq_board(title, answer) values (#{title}, #{answer})
 		</insert> 
 		
 		<select id="getList" resultType="com.wisenut.bbbot.faq.BoardDTO">
@@ -13,9 +13,14 @@
 		</select>
 		
 		<select id="getPage" resultType="com.wisenut.bbbot.faq.BoardDTO">
-		select * from faq_board where no= #{no};
+		<![CDATA[
+		select no,title, replace(answer,chr(10),'<br>') as answer,count
+		 from faq_board where no= #{no};
+		]]>
+		
 		</select>
 		
+		 
 		<update id="updateArticle" parameterType="com.wisenut.bbbot.faq.BoardDTO">
 		update faq_board set title = #{title}, content = #{content}, answer = #{answer}
 		where no = #{no} 

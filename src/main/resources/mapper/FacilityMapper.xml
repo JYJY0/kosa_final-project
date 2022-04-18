@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wisenut.bbbot.facility.FacilityDAO">
 <select id="searchFacility" resultType="com.wisenut.bbbot.facility.Facility" parameterType="String">
-	select lat,lon,place_name
+	select lat,lon,place_name,address
 	from facility
 	where district=#{district} and type=#{type}
 </select>

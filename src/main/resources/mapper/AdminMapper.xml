@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisenut.bbbot.admin.AdminDAO">
+
+<select id="getBarChart" resultType="com.wisenut.bbbot.admin.AdminEDA">
+  <![CDATA[
+WITH test AS
+(
+select c_id, substring_index(substring_index(word_token, ' ', n), ' ', -1) as word_token
+from chat_log
+join 
+(SELECT @row := @row + 1 as n FROM 
+(select 0 union all SELECT 1 union all SELECT 2 union all select 3 union all SELECT 4 
+UNION all SELECT 5 union all select 6 union all select 7 union all select 8 union all select 9) t,
+(SELECT @row:=0) r) as numbers
+  on char_length(word_token) - char_length(replace(word_token, ' ', ''))  >= n - 1)
+  
+SELECT word_token,COUNT(c_id) as cnt FROM test where word_token != '' GROUP BY word_token ORDER BY cnt DESC LIMIT 10;
+
+  ]]>
+</select>
+
+<select id="getPieChart" resultType="com.wisenut.bbbot.admin.AdminEDA">
+<![CDATA[
+SELECT concat(TRUNCATE((TO_DAYS(NOW()) - (TO_DAYS(birth))) / 365, 0),'살') AS age,
+  REPLACE(replace(gender,1,'남'),2,'여') as gender, COUNT(member_code) AS cnt
+FROM member_child
+GROUP BY age, gender;
+
+]]>
+
+</select>
+
+<select id="getTreemap" resultType="com.wisenut.bbbot.admin.AdminEDA">
+<![CDATA[
+
+WITH test AS
+(
+select c_id, substring_index(substring_index(word_token, ' ', n), ' ', -1) as word_token
+from chat_log
+join 
+(SELECT @row := @row + 1 as n FROM 
+(select 0 union all SELECT 1 union all SELECT 2 union all select 3 union all SELECT 4 
+UNION all SELECT 5 union all select 6 union all select 7 union all select 8 union all select 9) t,
+(SELECT @row:=0) r) as numbers
+  on char_length(word_token) - char_length(replace(word_token, ' ', ''))  >= n - 1)
+  
+select residence, concat(word_token,CONCAT('-',TRIM(TRAILING '구' FROM residence))) AS word_token, cnt
+from
+(
+    select residence, word_token, cnt,
+      (@num:=if(@group = residence, @num +1, if(@group := residence, 1, 1))) row_number
+  FROM 
+  (SELECT residence, word_token, COUNT(word_token) as cnt
+FROM test t, (select c_id, member_code from chat_log) c, member m
+WHERE t.c_id = c.c_id AND c.member_code = m.member_code
+   and word_token != ''
+GROUP BY residence, word_token ORDER BY residence,cnt DESC) t
+  CROSS JOIN (select @num:=0, @group:=null) c
+  ORDER BY residence, cnt DESC
+) as x
+where x.row_number <= 10;
+]]>
+</select>
+
+<select id="getLineChart" resultType="com.wisenut.bbbot.admin.AdminEDA">
+<![CDATA[
+
+SELECT d.hour AS HOUR, d.weekday AS WEEKDAY, IFNULL(e.weekend,0) AS weekend FROM
+(SELECT h.hour as HOUR, ifnull(WEEKDAY,0) AS weekday FROM
+(SELECT @N := @N + 1 AS hour FROM bbb_answer, (select @N:=0 FROM DUAL) NN LIMIT 24) h
+LEFT JOIN
+(select HOUR(log_time) AS hour, count(log_time) AS weekday FROM chat_log WHERE DAYOFWEEK(log_time) BETWEEN 2 AND 6 GROUP BY HOUR(log_time)) d
+ON h.hour = d.hour) d
+LEFT JOIN
+(select HOUR(log_time) AS hour, count(log_time) AS weekend FROM chat_log WHERE DAYOFWEEK(log_time) IN(1,7) GROUP BY HOUR(log_time)) e
+ON d.hour = e.hour;
+
+]]>
+</select>
+
+</mapper>

@@ -41,19 +41,20 @@ a {
 
 table {
 	border-collapse: collapse;
-	width: 1000px;
+	width: 100%;
 	margin-top: 30px;
 	text-align: center;
 	overflow: auto;
+	font-size:18px
 }
 
 td, th {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	height: 60px;
 }
 
 th {
-	font-size: 17px;
+	font-size: 20px;
 }
 
 thead {
@@ -84,11 +85,19 @@ thead {
 }
 
 .top_btn {
-	font-size: 15px;
-	padding: 5px 30px;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	font-weight: 600;
+	  	display: inline-block;
+	    font-size: 18px;
+	    padding: 6px 12px;
+	    background-color: #fff;
+	    border: 1px solid #ddd;
+	    font-weight: 600;
+	    width: 140px;
+	    height: 41px;
+	    line-height: 39px;
+	    text-align : center;
+	    margin-left : 30px;
+	    cursor : pointer;
+	    color:#25a7b4;
 }
 .table_wrap{
 	height: 60px;
@@ -98,24 +107,39 @@ thead {
 </head>
 <body >
 	<!-- Wrap all page content here -->
-	<div>
 		<jsp:include page="../common/chatbot_nav.jsp" />
+		 <section id="team">
+            <div class="container">
+            
+                <div id="carousel-team" class="carousel slide" data-ride="carousel">
+                	
+                    <div class="row" >
+                        <div class="col-md-12">
+                            <div class="section-heading scrollpoint sp-effect3" >
+                                <div class="newsletter-wrapper">
+		                            <h3 class="scrollpoint sp-effect3" style="font-size:40px; "><span>자주 물어보는 질문</span></h3>
+		                            
+                       			</div>
+                           </div>
+                        </div>
+                    </div>
+        
+                
+                </div>
+            </div>
+            </section>
 			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-md-push-2 clearfix">
-						<!-- <div class="section-heading scrollpoint sp-effect3">
-                            <h3><span>BBBOT</span></h3>
-                            <span class="divider"></span>
-                            
-                        </div> -->
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-
-			<div class="table_wrap">
-				<table border="1">
-					<tread>
+				<div class="row" style="margin-top:20px">
+					<div class="col">
+					<% if (session.getAttribute("id").equals("admin")){%>
+				        
+						<a href="enroll" class="top_btn">글쓰기</a>
+				<%} %>
+			</div>
+			<div class="row">
+			<!-- <div class="table_wrap"> -->
+				<table class="table">
+					<thead>
 					<tr class="text-center" style="background: #E6E6F2;">
 						<th class="no_width" style="width:5%">글번호</th>
 						<th class="title_width" >제목</th>
@@ -123,7 +147,7 @@ thead {
 						<!-- <th class="content_width">내용</th>
 						<th class="answer_width">답변</th> -->
 					</tr>
-					</tread>
+					</thead>
 					<c:forEach var="list" items="${list}">
 						<tr>
 							<td><c:out value="${list.no}" /></td>
@@ -132,11 +156,10 @@ thead {
 						</tr>
 					</c:forEach>
 				</table>
-		
-				<a href="enroll" class="top_btn">글쓰기</a>
-			</div>	
-				</div>
 				
+			<!-- </div> -->	
+				
+			</div>
 			</div>
 	</div>
 

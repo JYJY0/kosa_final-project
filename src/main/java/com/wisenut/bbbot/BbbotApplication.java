@@ -10,4 +10,5 @@ public class BbbotApplication {
 		SpringApplication.run(BbbotApplication.class, args);
 	}
 
+
 }

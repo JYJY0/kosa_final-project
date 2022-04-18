@@ -108,7 +108,7 @@ public class BoardController {
 	public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
 		try {
 			boardService.updateArticle(boardDTO);
-			return "redirect:faq/detail?no=" + boardDTO.getNo();
+			return "redirect:/faq/detail?no=" + boardDTO.getNo();
 		} catch (SQLException e) {
 			model.addAttribute("msg", e.getMessage());
 			model.addAttribute("url", "javascript:history.back();");

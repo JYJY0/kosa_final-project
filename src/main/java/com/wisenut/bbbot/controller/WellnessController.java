@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wisenut.bbbot.wellness.Wellness;
 import com.wisenut.bbbot.wellness.WellnessProperty;
 import com.wisenut.bbbot.wellness.WellnessService;
 
@@ -43,38 +44,49 @@ public class WellnessController {
 	public String wellnessRef() {
 		return "wellness/wellness_index2";
 	}
-	@RequestMapping("/wellness/slide")
-	public String wellnessSlide() {
-		return "wellness/slide";
+	@RequestMapping("/wellness/ref2")
+	public String wellnessRef2() {
+		return "ref/ref";
 	}
+	
 	@GetMapping("/wellness/info")
-	public String wellnessInfo(@RequestParam String name, Model model) throws Exception {
+	public String wellnessInfo(@RequestParam String name,@RequestParam String page, Model model) throws Exception {
 		log.debug(name);
 		diseaseName = name;
-		List<WellnessProperty> propertyList = wellnessService.searchDisease(name);
+		List<WellnessProperty> dbProperty = wellnessService.searchDisease(name);
+		List<String> propertyList = new ArrayList<>();
+		
+		int pg = Integer.parseInt(page);
+		if(pg == 1) {
+			for (WellnessProperty w : dbProperty) {
+				if (w.getProperty().equals("정의")||w.getProperty().equals("원인")||w.getProperty().equals("증상")||w.getProperty().equals("증상부위")) {
+					propertyList.add(w.getProperty());
+				}
+			}
+		}else if(pg == 2) {
+			for (WellnessProperty w : dbProperty) {
+				if (w.getProperty().equals("완화방법")||w.getProperty().equals("좋은음식")||w.getProperty().equals("치료약")||w.getProperty().equals("치료방법")) {
+					propertyList.add(w.getProperty());
+				}
+			}
+		}else if(pg == 3) {
+			for (WellnessProperty w : dbProperty) {
+				if (w.getProperty().equals("해로운음식")||w.getProperty().equals("원인")||w.getProperty().equals("증상")||w.getProperty().equals("증상부위")) {
+					propertyList.add(w.getProperty());
+				}
+			}
+		}
+		
+		
+		
 		model.addAttribute("propertyList", propertyList);
+		model.addAttribute("page", page);
+		model.addAttribute("name", diseaseName);
 		log.debug(propertyList.toString());
 		
 		
 		return "wellness/wellness_info";
 	}
-	
-	/*@PostMapping("/wellness/info")
-	  @ResponseBody
-	  public Map<String,String> wellnessInfo(@RequestParam(value ="property[]") List<String> params, Model model) throws Exception {
-	  
-		  Map<String,String> result = new HashMap<>();
-	  //List<WellnessProperty> paramList = new ArrayList<WellnessProperty>();
-	  log.debug(params.get(0));
-	  
-	  //WellnessProperty property = new WellnessProperty(params.get("property").toString(),diseaseName);
-	  //WellnessProperty descript= wellnessService.getDescript(property);
-	  
-	  //result.put("descript", descript.getDescript());
-	  
-	  log.debug(result.toString()); 
-	  return result; 
-	  }*/
 	
 	
 	  @PostMapping("/wellness/info")
@@ -88,12 +100,38 @@ public class WellnessController {
 	  WellnessProperty property = new WellnessProperty(params.get("property"),diseaseName);
 	  WellnessProperty descript= wellnessService.getDescript(property);
 	  
+	  
 	  result.put("descript", descript.getDescript());
 	  
 	  log.debug(result.toString()); 
 	  return result; 
 	  } 
-	 
-	
-	
+
+	  @PostMapping("/wellness/symptom")
+	  @ResponseBody
+	  public Map<String,Object> wellnesssymptom(@RequestBody Map<String,String>params, Model model) throws Exception {
+	  
+	  Map<String,Object> result = new HashMap<>();
+	  List<Wellness> labelList = new ArrayList<>();
+	  
+	  List<WellnessProperty> symptomList = new ArrayList<>();
+	  if (params.get("descript") != null) {
+		  Wellness ws = new Wellness(params.get("descript"),params.get("area"));
+		  labelList = wellnessService.getLabel(ws);
+		  log.debug(labelList.toString());
+	  }else {
+		  symptomList = wellnessService.getSymptom(params.get("area"));  
+	  }
+	  
+	  result.put("symptomList", symptomList);
+	  result.put("labelList", labelList);
+	  
+	  log.debug(result.toString()); 
+	  return result; 
+	  } 
+	  
+	  
+	  
+	  
+	  
 }

@@ -6,8 +6,7 @@ import java.util.List;
 public interface WellnessService {
 	
 	List<WellnessProperty> searchDisease(String name) throws Exception;
-	
 	WellnessProperty getDescript(WellnessProperty property) throws SQLException;
-	
-	
+	List<WellnessProperty> getSymptom(String symptom_area) throws SQLException;
+	List<Wellness> getLabel(Wellness wellness) throws SQLException;
 }

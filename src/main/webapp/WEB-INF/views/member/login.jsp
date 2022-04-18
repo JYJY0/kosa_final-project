@@ -69,7 +69,7 @@
                         <fieldset>
                            <div class="field">
                               <label class="label_field">ID</label>
-                              <input type="id" name="id" placeholder="Id" />
+                              <input type="text" name="id" placeholder="Id" />
                            </div>
                            <div class="field">
                               <label class="label_field">Password</label>
@@ -77,13 +77,14 @@
                            </div>
                            <div class="field">
                               <label class="label_field hidden">hidden label</label>
-                              <label class="form-check-label"><input type="checkbox" class="form-check-input"> Remember Me</label><br/><br/>
+                              <!-- <label class="form-check-label"><input type="checkbox" class="form-check-input"> Remember Me</label><br/><br/> -->
                               <a class="forgot" href="">Forgotten Password?</a>
                            </div>
                            <div class="field margin_0">
                               <label class="label_field hidden">hidden label</label>
                               <button class="main_bt" id="sign-in" type="submit">Sing In</button>
-                              <button class="main_bt" id="sign-up" type="submit">Sing Up</button>
+                              
+                              <button class="main_bt" id="sign-up" type="button">Sing Up</button>
                               
                            </div>
                         </fieldset>
@@ -129,19 +130,12 @@
 			appMaster.preLoader();
 		});
 	</script>
-	<script>
-
-		$("#sign-up").click(function() {
-			alert("회원가입 버튼 작동");	
-			location.href="http://localhost:8080/member/register";
-		});
-	</script>
 	<script type="text/javascript">
     $(document).ready(function() {
-        var msg = '<c:out value="${msg}"/>';
-        if((msg=='일치하는 회원정보가 없습니다.'))
-            alert("일치하는 회원정보가 없습니다.");
-     
+         
+	$('#sign-up').click(function(){
+		location.href='/member/register';
+	});
     });
 </script>
  <!-- jQuery -->

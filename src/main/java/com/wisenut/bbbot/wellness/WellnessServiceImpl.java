@@ -25,15 +25,23 @@ public class WellnessServiceImpl implements WellnessService{
 		log.debug(propertyList.get(0).getProperty());
 		return propertyList;
 		
-		
 	}
-	
+
 	@Override
 	public WellnessProperty getDescript(WellnessProperty property) throws SQLException {
-		
 		
 		WellnessProperty descript = wellnessDAO.getDescript(property);
 		return descript;
 	}
 	
+	@Override
+	public List<WellnessProperty> getSymptom(String symptom_area) throws SQLException {
+		
+		return wellnessDAO.getSymptom(symptom_area);
+	}
+	@Override
+	public List<Wellness> getLabel(Wellness wellness) throws SQLException {
+		log.debug(wellness.toString());
+		return wellnessDAO.getLabel(wellness);
+	}
 }

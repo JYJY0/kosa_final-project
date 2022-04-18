@@ -15,4 +15,5 @@ public class WellnessProperty {
 	public WellnessProperty(String property) {
 		this.property = property;
 	}
+	
 }

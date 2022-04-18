@@ -28,6 +28,7 @@ import com.wisenut.bbbot.member.ChildDTO;
 import com.wisenut.bbbot.member.MemberDTO;
 import com.wisenut.bbbot.member.MemberService;
 
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 import lombok.extern.log4j.Log4j2;
 
 @Controller
@@ -83,19 +84,6 @@ public class MemberController {
 		}
 		
 		
-		
-		/*MemberDTO mb=memberService.memberLogin(memberDTO);
-		
-		if (mb==null) { //일치하지않은 아이디, 비밀번호(로그인실패)
-			int result=0;
-			rttr.addFlashAttribute("result",result);
-			return "/member/login";
-		}else {
-			session.setAttribute("member", mb); //일치하는 아이디, 비밀번호(로그인성공)
-			return "redirect:/list";	
-		}*/
-		//memberService.memberLogin(memberDTO);
-		
 	}
 
 	
@@ -109,36 +97,38 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(MemberDTO memberDTO, Model model, HttpSession session,RedirectAttributes ra) throws Exception {
+	public String login(MemberDTO memberDTO, Model model, HttpSession session,HttpServletRequest request) throws Exception {
 		//jsp를 보여주는 함수
 		log.info("로그인 정보 입력");
 	
 		memberDTO=memberService.memberLogin(memberDTO);
-		if(memberDTO != null) {
-			session.setAttribute("member", memberDTO);
-			
-			 ra.addFlashAttribute("msg","로그인 성공"); 
-			 return "redirect:/faq/list";
 		
+		if(memberDTO != null) {
+			session = request.getSession();
+			session.setAttribute("id", memberDTO.getId());
+			
+			/* ra.addFlashAttribute("msg","로그인 성공"); */
+			if(memberDTO.getId().equals("admin")) {
+				return "redirect:/admin/eda";
+			}
+			int member_code = memberService.selectMember(memberDTO.getId());
+			log.debug(member_code);
+			model.addAttribute("member_code",member_code);
+			 return "chatbot/index";
 		}
 		
 		 else {  
-		session.setAttribute("member",null);
-		ra.addFlashAttribute("msg","일치하는 회원정보가 없습니다.");
-		return "redirect:/member/login";
+			 return "redirect:/member/login";
 		 }
-		
-		
-			
-		
-		
-		
-		
-		
-		
-	
 	}
-		/*List<String> idid=memberService.selectId(); //list id에 대한 변수선언=idid, for문 안에 if문, 입력한 id가 리스트 idid와 비교한 후 없을 경우 반복문 수행
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) throws Exception{
+		session.invalidate();
+		return "redirect:/member/login";
+	}
+	
+	/*List<String> idid=memberService.selectId(); //list id에 대한 변수선언=idid, for문 안에 if문, 입력한 id가 리스트 idid와 비교한 후 없을 경우 반복문 수행
 		String msg= "";
 		log.info(idid.toString());
 		for (String i : idid) {

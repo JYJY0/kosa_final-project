@@ -25,4 +25,31 @@ WHERE resource =
 GROUP BY property;
 </select> 
 
+<select id="getSymptom" parameterType="String" resultType="com.wisenut.bbbot.wellness.WellnessProperty">
+SELECT distinct descript
+FROM wellness_pro
+WHERE property = '증상'AND resource IN (
+	SELECT resource
+	FROM wellness_sym
+	WHERE symptom_area = #{symptom_area}
+)
+</select>
+
+<select id="getLabel" parameterType="com.wisenut.bbbot.wellness.Wellness" resultType="com.wisenut.bbbot.wellness.Wellness">
+
+SELECT label
+FROM wellness 
+where resource IN (
+	SELECT  resource
+	FROM wellness_pro
+	WHERE property = '증상' AND descript = #{descript} AND resource IN 
+		(SELECT resource
+		FROM wellness_sym
+		WHERE symptom_area = #{symptom_area})		
+	)
+
+
+
+</select>
+
 </mapper>

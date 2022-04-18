@@ -14,8 +14,28 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/resources/member/img/bbbot.png">
     <link href="/resources/member/css/style-register.css" rel="stylesheet">
    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+   <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
   
 <style>
+	.body{
+		font-family: NanumSquareRound;
+	}
+	.residence {
+	 width: 100%;
+	height:35px;
+	font-size:15px;
+	color: black;
+	/* padding: .8em .5em; */
+	border: 1px solid #999;
+	font-family: inherit;
+	background: url('../../resources/chatbot/img/arrow.jpg') no-repeat 95% 50%;
+	background-color:white;
+	border-radius: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	}
+
 	.select {
 	    padding: 15px 10px;
 	}
@@ -41,9 +61,37 @@
 	    background-color: #333;
 	    color: #fff;
 	}
+	#pluschild{
+		float:right;
+		background: #6E6E6E;
+		width: 100px;
+		height:40px;
+		font-size:15px;
+		color: white;
+	}
+	.gender{
+		 width: 100px;
+		height:35px;
+		font-size:15px;
+		color: black;
+		/* padding: .8em .5em; */
+		border: 1px solid #999;
+		font-family: inherit;
+		background: url('../../resources/chatbot/img/arrow.jpg') no-repeat 95% 50%;
+		background-color:white;
+		border-radius: 0px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		margin-left:10px
+	}
+	.birth{
+	width: 100px;
+	height:35px;
+	}
 </style>
 </head>
-<body class="h-100">
+<body class="h-100 body">
 		<div class = "authincation h-100">
 			<div class="container-fluid h-100">
 				<div class="row justify-content-center h-100 align-items-center">
@@ -52,7 +100,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">회원가입</h4>
+                                    <h2 class="text-center mb-4" style="font-weight:bold">회원가입</h2>
                                     	<form action =""  method="post">
                                     		<div class="form-group">
 	                                            <label><strong>Id</strong></label>
@@ -60,18 +108,56 @@
                                         	</div>
                                         	<div class="form-group">
 	                                            <label><strong>Password</strong></label>
-	                                            <input type="text" class="form-control" name="password" placeholder="password">
+	                                            <input type="password" class="form-control" name="password" placeholder="password">
                                         	</div>
                                         	<div class="form-group">
+                                        		
 	                                            <label><strong>Residence</strong></label>
-	                                            <input type="text" class="form-control" name="residence" placeholder="주소(구까지 입력)">
+	                                            <div class="row">
+	                                            	<div class="col-md-4">
+	                                            <input type="text" class="form-control" value="서울시" disabled="disabled">
+	                                            </div>
+	                                            <div class="col-md-6">
+	                                            <select name="residence" class="residence" >
+	                                            	<option value="" selected disabled hidden>자치구 선택</option>
+	                                            	<option value="강남구">강남구</option>
+	                                            	<option value="강동구">강동구</option>
+	                                            	<option value="강북구">강북구</option>
+	                                            	<option value="강서구">강서구</option>
+	                                            	<option value="관악구">관악구</option>
+	                                            	<option value="광진구">광진구</option>
+	                                            	<option value="구로구">구로구</option>
+	                                            	<option value="금천구">금천구</option>
+	                                            	<option value="노원구">노원구</option>
+	                                            	<option value="도봉구">도봉구</option>
+	                                            	<option value="동대문구">동대문구</option>
+	                                            	<option value="동작구">동작구</option>
+	                                            	<option value="마포구">마포구</option>
+	                                            	<option value="서대문구">서대문구</option>
+	                                            	<option value="서초구">서초구</option>
+	                                            	<option value="성동구">성동구</option>
+	                                            	<option value="성북구">성북구</option>
+	                                            	<option value="송파구">송파구</option>
+	                                            	<option value="양천구">양천구</option>
+	                                            	<option value="영등포구">영등포구</option>
+	                                            	<option value="용산구">용산구</option>
+	                                            	<option value="은평구">은평구</option>
+	                                            	<option value="종로구">종로구</option>
+	                                            	<option value="중구">중구</option>
+	                                            	<option value="중랑구">중랑구</option>
+	                                            </select>
+	                                            	</div>
+	                                            </div>
                                             </div>
+
+
                                             <button type="button" id="pluschild">자녀추가</button>
                                             <div class="child">
 	                                            <div class="select">
-													<label>Child Information</label>
+													<label><strong>Child Information</strong></label>
 													<br/>
-													<select name="gender" >
+													<label>성별</label>
+													<select name="gender" class="gender" >
 														<option value=1>남</option>
 														<option value=2>여</option>
 													</select>
@@ -223,7 +309,6 @@
     			//        async: false,
     			contentType: "application/json; charset=utf-8",
     			success: function(data) {
-    				alert(123);
     				location.href = '/member/login';
     			},
     			error: function(xtr, status, error) {

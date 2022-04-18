@@ -11,7 +11,8 @@
   <meta name="description" content="HTML5 website template">
   <meta name="keywords" content="global, template, html, sass, jquery">
   <meta name="author" content="Bucky Maler">
-  <link rel="stylesheet" href="<c:url value="/resources/wellness/css/wellness_main.css"/>">
+  <%-- <link rel="stylesheet" href="<c:url value="/resources/wellness/css/wellness_main2.css"/>"> --%>
+  <link rel="stylesheet" href="<c:url value="/resources/wellness/css/main.css"/>">
 </head>
 <body>
 

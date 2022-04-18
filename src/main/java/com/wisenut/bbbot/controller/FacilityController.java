@@ -49,6 +49,7 @@ public class FacilityController {
 		
 		
 		result.put("facilityList", facilityList);
+		
 		return result;
 		
 	}
